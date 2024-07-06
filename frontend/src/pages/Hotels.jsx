@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Header = () => {
+const Hotels = () => {
   return (
     <div>
-      header
+      Hotels
     </div>
   )
 }
 
-export default Header
+export default Hotels

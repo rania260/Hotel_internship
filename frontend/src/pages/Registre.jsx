@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Header = () => {
+const Registre = () => {
   return (
     <div>
-      header
+      Registre
     </div>
   )
 }
 
-export default Header
+export default Registre
