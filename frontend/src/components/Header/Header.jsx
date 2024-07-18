@@ -76,7 +76,7 @@ const stickyHeaderFunc = () => {
                                     <Link to='/login'>Login</Link>
                                 </Button>
                                 <Button className="btn primary__btn">
-                                    <Link to='/register'>Register</Link>
+                                    <Link to='/registre'>Register</Link>
                                 </Button>
                                
                             </div>
