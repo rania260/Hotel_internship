@@ -10,6 +10,7 @@ import HotelDetails from '../pages/HotelDetails';
 import Login from '../pages/Login';
 import Registre from '../pages/Registre';
 import SearchResultList from '../pages/SearchResultList';
+import AdminDashboard from '../components/Admin/AdminDashbord';
 
 const Routers = () => {
   return (
@@ -21,6 +22,8 @@ const Routers = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/registre" element={<Registre />} />
         <Route path="/hotels/search" element={<SearchResultList />} />
+
+        <Route path="/admin" element={<AdminDashboard />}></Route>
     </Routes>
   )
 }
