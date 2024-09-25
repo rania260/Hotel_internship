@@ -1,27 +1,50 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Form, FormGroup, Button } from 'reactstrap'
+import { Container, Row, Col, Form, FormGroup, Button, Alert } from 'reactstrap'
 import '../styles/login.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import registerImg from '../assets/images/login.png'
 import userIcon from '../assets/images/user.png'
 
-
 const Register = () => {
    const [credentials, setCredentials] = useState({
-      userName: undefined,
-      email: undefined,
-      password: undefined
+      username: '',
+      email: '',
+      password: ''
    })
-
    
+   const [error, setError] = useState(null)  // State for handling errors
+   const [success, setSuccess] = useState(false)  // State for handling success
+
+   const navigate = useNavigate();  // For redirecting
 
    const handleChange = e => {
       setCredentials(prev => ({ ...prev, [e.target.id]: e.target.value }))
    }
 
-   const handleClick = e => {
+   const handleClick = async (e) => {
       e.preventDefault()
+      try {
+         const response = await fetch('http://127.0.0.1:5000/register', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+         })
 
+         const data = await response.json()
+
+         if (response.status === 201) {
+            setSuccess(true)  // Set success message
+            setError(null)    // Clear any previous errors
+            alert('User registered successfully!')
+            navigate('/login') // Redirect to login after success
+         } else if (response.status === 409) {
+            setError(data.msg)  // Set error message
+         }
+      } catch (err) {
+         setError('Something went wrong. Please try again later.')
+      }
    }
 
    return (
@@ -39,6 +62,9 @@ const Register = () => {
                            <img src={userIcon} alt="" />
                         </div>
                         <h2>Register</h2>
+
+                        {error && <Alert color="danger">{error}</Alert>}
+                        {success && <Alert color="success">User registered successfully! Redirecting...</Alert>}
 
                         <Form onSubmit={handleClick}>
                            <FormGroup>
@@ -62,4 +88,4 @@ const Register = () => {
    )
 }
 
-export default Register
+export default Register;
